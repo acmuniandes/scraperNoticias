@@ -1,0 +1,1 @@
+scrape: python scraperElTiempo.py —log-file -
