@@ -1,0 +1,7 @@
+node_modules/
+venv
+*.pyc
+staticfiles
+.env
+db.sqlite3
+PapaParse
