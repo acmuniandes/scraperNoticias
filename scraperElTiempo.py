@@ -9,9 +9,9 @@ class articulo:
     titulo=''
     link=''
     contenido=''
-listaArticulos=[]
 
 def scrape():
+    listaArticulos=[]
     print(datetime.datetime.now())
     soup = BeautifulSoup(urlopen("http://www.eltiempo.com"),'html5lib')
     for unArticulo in soup.find_all('div',class_="main_article"):
@@ -33,6 +33,7 @@ def scrape():
         for a in listaArticulos:
             writer.writerow([a.titulo,a.link, a.contenido])
     print(datetime.datetime.now())
+
 
 scrape()
 schedule.every(5).minutes.do(scrape)
