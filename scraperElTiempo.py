@@ -31,6 +31,7 @@ def scrape():
         writer = csv.writer(f)
         writer.writerow(["titulo", "link", "contenido"])
         for a in listaArticulos:
+            print(a.titulo)
             writer.writerow([a.titulo,a.link, a.contenido])
     print(datetime.datetime.now())
 
