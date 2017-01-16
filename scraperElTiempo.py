@@ -47,8 +47,6 @@ def request(url):
     response.encoding="utf-8"
     return response.text
 
-
-
 def log(algo):
     prefix = '[' + timestamp() + '] '
     print( prefix + algo)
@@ -56,11 +54,10 @@ def log(algo):
 def timestamp():
     return datetime.datetime.now().strftime("%m/%d/%y %H:%M:%S")
 
-
 def serialize_articles(lista):
-    articulos = "titulo,link,contenido \n"
     articulos += map(serialize_article, lista)
-    return '\n'.join(articulos)
+    finalCsv =  "titulo,link,contenido" + '\n'.join(articulos)
+    return finalCsv
 
 def serialize_article(article):
     line_elements = [
