@@ -32,9 +32,9 @@ p {
   <ul class="collapsible popout" data-collapsible="accordion">
     <li v-for="articulo in articulos" >
       <div class="collapsible-header"><i class="material-icons">zoom_in</i>
-          {{articulo.titulo}} {{articulo.contenido}}
+          {{articulo.titulo}}
           </div>
-      <div class="collapsible-body" style=" padding:1rem;"><p :v-html="articulo.contenido" style=" padding:1rem;">{{articulo.contenido}}</p></div>
+      <div class="collapsible-body" style=" padding:1rem;"><p v-html="articulo.contenido" style=" padding:1rem;">{{articulo.contenido}}</p></div>
     </li>
   </ul>
 </div>
