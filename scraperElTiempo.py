@@ -13,11 +13,12 @@ class articulo:
     titulo=''
     link=''
     contenido=''
+
 USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.95 Safari/537.36"
+
 def scrape():
     listaArticulos=[]
     log("solicitando principal")
-    request("http://www.futbolred.com/liga-bbva/real-madrid-encadena-40-partidos-invicto+16791919")
     page = request("http://eltiempo.com")
 
     soup = BeautifulSoup( page , 'html5lib')
