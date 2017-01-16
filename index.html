@@ -1,1 +1,65 @@
-Hello World!
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width">
+
+  <script src="PapaParse/papaparse.js"></script>
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet" type="text/css">
+  <link href="https://unpkg.com/vuetify/dist/vuetify.min.css" rel="stylesheet" type="text/css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+</head>
+
+<body>
+
+<style>
+p {
+  font-family: verdana;
+  font-size: 20px;
+  padding:1rem;
+}
+
+.collapsible-body{
+  border-bottom:0px;
+}
+</style>
+
+<div id="app" align='center'>
+
+  <h1 aling=center>El Tiempo Light</h1>
+  <ul class="collapsible popout" data-collapsible="accordion">
+    <li v-for="articulo in articulos" >
+      <div class="collapsible-header"><i class="material-icons">zoom_in</i>{{articulo.titulo}}</div>
+      <div class="collapsible-body" style=" padding:1rem;"><p v-html="articulo.contenido" style=" padding:1rem;"></p></div>
+    </li>
+  </ul>
+</div>
+</div>
+
+<script>
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    articulos:"",
+    message: 'Hello Vue!'
+  }
+})
+
+Papa.parse("output.csv", {
+  download: true,
+  dynamicTyping: true,
+  header: true,
+  complete: function(results) {
+    app.articulos=results.data;
+  }
+});
+
+
+</script>
+</body>
+
+
+</html>
