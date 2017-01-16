@@ -45,7 +45,6 @@ def request(url):
     custom_headers = {'user-agent' : USER_AGENT , 'accept': "text/html;charset=UTF-8"  }
     response = requests.get(url , headers = custom_headers)
     response.encoding="utf-8"
-    log(response.encoding)
     return response.text
 
 
