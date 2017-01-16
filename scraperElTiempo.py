@@ -61,12 +61,16 @@ def serialize_articles(lista):
 
 def serialize_article(article):
     line_elements = [
-        str(article.titulo),
-        str(article.link),
-        str(article.contenido)
+        article.titulo,
+        article.link,
+        article.contenido
     ]
-    final_line = ','.join(line_elements)
+    clean_line_elements = map(applyFormatEscaping , line_elements )
+    final_line = ','.join(clean_line_elements)
     return final_line
+
+def applyFormatEscaping(data):
+    return  '"' + str(data).replace('"', "'") + '""'
 
 def store(content):
     r = redis.from_url(os.environ.get('REDIS_URL'))
