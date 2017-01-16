@@ -42,7 +42,10 @@ def scrape():
 
 def request(url):
     log("requesting " + url)
-    custom_headers = {'user-agent' : USER_AGENT , 'accept': "text/html;charset=UTF-8"  }
+    custom_headers = {
+        'user-agent' : USER_AGENT ,
+        'accept': "text/html;charset=UTF-8"
+    }
     response = requests.get(url , headers = custom_headers)
     response.encoding="utf-8"
     return response.text
