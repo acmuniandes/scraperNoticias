@@ -56,7 +56,7 @@ def timestamp():
 
 def serialize_articles(lista):
     articulos = map(serialize_article, lista)
-    finalCsv =  "titulo,link,contenido" + '\n'.join(articulos)
+    finalCsv =  "titulo,link,contenido \n" + '\n'.join(articulos)
     return finalCsv
 
 def serialize_article(article):
