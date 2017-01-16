@@ -70,7 +70,7 @@ def serialize_article(article):
     return final_line
 
 def applyFormatEscaping(data):
-    return  '"' + str(data).replace('"', "'") + '""'
+    return  '"' + str(data).replace('"', "'") + '"'
 
 def store(content):
     r = redis.from_url(os.environ.get('REDIS_URL'))
