@@ -55,7 +55,7 @@ def timestamp():
     return datetime.datetime.now().strftime("%m/%d/%y %H:%M:%S")
 
 def serialize_articles(lista):
-    articulos += map(serialize_article, lista)
+    articulos = map(serialize_article, lista)
     finalCsv =  "titulo,link,contenido" + '\n'.join(articulos)
     return finalCsv
 
