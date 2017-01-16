@@ -57,6 +57,11 @@ def timestamp():
     return datetime.datetime.now().strftime("%m/%d/%y %H:%M:%S")
 
 
+def serialize_articles(lista):
+    articulos = "titulo,link,contenido \n"
+    articulos += map(serialize_article, lista)
+    return '\n'.join(articulos)
+
 def serialize_article(article):
     line_elements = [
         str(article.titulo),
@@ -65,10 +70,6 @@ def serialize_article(article):
     ]
     final_line = ','.join(line_elements)
     return final_line
-
-def serialize_articles(lista):
-    articulos = map(serialize_article, lista)
-    return '\n'.join(articulos)
 
 def store(content):
     r = redis.from_url(os.environ.get('REDIS_URL'))
