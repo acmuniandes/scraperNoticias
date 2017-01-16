@@ -1,3 +1,2 @@
-scrape: python scraperElTiempo.py —log-file -
-server: python server.py -log-file -
-web: python -m http.server $PORT
+scrape: python scraperElTiempo.py
+web: FLASK_APP=server.py python -m flask run --host=0.0.0.0 --port=$PORT
