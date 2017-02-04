@@ -35,8 +35,9 @@ def scrape():
             nuevoArticulo.link = "http://www.eltiempo.com" + nuevoArticulo.link
         noodles = BeautifulSoup(request(nuevoArticulo.link),'html5lib')
         nuevoArticulo.contenido = (noodles.find('div',id="contenido"))
+        nuevoArticulo.fecha = noodles.find('time').get('datetime')
+
         if nuevoArticulo.contenido != None:
-            nuevoArticulo.fecha = noodles.find('time').get('datetime')
             listaArticulos.append(nuevoArticulo)
 
     elcsv = serialize_articles(listaArticulos)
@@ -62,7 +63,7 @@ def timestamp():
 
 def serialize_articles(lista):
     articulos = map(serialize_article, lista)
-    finalCsv =  "titulo,link,contenido\n" + '\n'.join(articulos)
+    finalCsv =  "titulo,link,contenido,fecha\n" + '\n'.join(articulos)
     return finalCsv
 
 def serialize_article(article):
