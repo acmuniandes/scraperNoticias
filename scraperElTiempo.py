@@ -36,7 +36,7 @@ def scrape():
         noodles = BeautifulSoup(request(nuevoArticulo.link),'html5lib')
         nuevoArticulo.contenido = (noodles.find('div',id="contenido"))
         if nuevoArticulo.contenido != None:
-            nuevoArticulo.fecha = noodles.find('time')
+            nuevoArticulo.fecha = noodles.find('time').get('datetime')
             print('=----------------aqui va la fecha-------------------=')
             print(nuevoArticulo.fecha)
             listaArticulos.append(nuevoArticulo)
