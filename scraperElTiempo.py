@@ -37,8 +37,6 @@ def scrape():
         nuevoArticulo.contenido = (noodles.find('div',id="contenido"))
         if nuevoArticulo.contenido != None:
             nuevoArticulo.fecha = noodles.find('time').get('datetime')
-            print('=----------------aqui va la fecha-------------------=')
-            print(nuevoArticulo.fecha)
             listaArticulos.append(nuevoArticulo)
 
     elcsv = serialize_articles(listaArticulos)
