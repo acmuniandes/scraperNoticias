@@ -32,13 +32,18 @@ p {
   <ul class="collapsible popout" data-collapsible="expandable">
     <li v-for="articulo in articulos" >
       <div class="collapsible-header">
-            <p style="float: left;">{{articulo.titulo}}</p>
-           <p style="text-align:right">
-             {{articulo.fecha}}
-           </p>
-          </div>
+        <p style="float: left;">{{articulo.titulo}}</p>
+        <p style="text-align:right">
+          {{articulo.fecha}}
+        </p>
+      </div>
       <!-- <div class="collapsible-body" style=" padding:1rem;"><p  style=" padding:1rem;">{{articulo.imagen}}<img :src="articulo.imagen"  ></p></div> -->
-      <div class="collapsible-body" style=" padding:1rem;"> <img style="margin:auto;" :src="articulo.imagen">  <p v-html="articulo.contenido" style=" padding:1rem;">{{articulo.contenido}} </p></div>
+      <div class="collapsible-body" style=" padding:1rem;">
+        <div align=center>
+          <img style="margin:auto;" :src="articulo.imagen">
+        </div>
+        <p v-html="articulo.contenido" style=" padding:1rem;">{{articulo.contenido}} </p>
+      </div>
     </li>
   </ul>
 </div>
