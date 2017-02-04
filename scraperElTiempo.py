@@ -13,6 +13,7 @@ class articulo:
     titulo=''
     link=''
     contenido=''
+    fecha=''
 
 USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.95 Safari/537.36"
 
@@ -34,7 +35,11 @@ def scrape():
             nuevoArticulo.link = "http://www.eltiempo.com" + nuevoArticulo.link
         noodles = BeautifulSoup(request(nuevoArticulo.link),'html5lib')
         nuevoArticulo.contenido = (noodles.find('div',id="contenido"))
-        listaArticulos.append(nuevoArticulo)
+        if nuevoArticulo.contenido != None:
+            nuevoArticulo.fecha = noodles.find('time')
+            print('=----------------aqui va la fecha-------------------=')
+            print(nuevoArticulo.fecha)
+            listaArticulos.append(nuevoArticulo)
 
     elcsv = serialize_articles(listaArticulos)
     store(elcsv)
