@@ -35,9 +35,9 @@ def scrape():
             nuevoArticulo.link = "http://www.eltiempo.com" + nuevoArticulo.link
         noodles = BeautifulSoup(request(nuevoArticulo.link),'html5lib')
         nuevoArticulo.contenido = (noodles.find('div',id="contenido"))
-        nuevoArticulo.fecha = noodles.find('time').get('datetime')
 
         if nuevoArticulo.contenido != None:
+            nuevoArticulo.fecha = noodles.find('time').get('datetime')
             listaArticulos.append(nuevoArticulo)
 
     elcsv = serialize_articles(listaArticulos)
