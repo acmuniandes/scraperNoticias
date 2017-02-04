@@ -37,8 +37,8 @@ p {
              {{articulo.fecha}}
            </p>
           </div>
-      <div class="collapsible-body" style=" padding:1rem;"><p  style=" padding:1rem;">{{articulo.imagen}}<img :src="articulo.imagen"  ></p></div>
-      <!-- <div class="collapsible-body" style=" padding:1rem;"><p v-html="articulo.contenido" style=" padding:1rem;">{{articulo.contenido}} <img :src="articulo.imagen"></img> </p></div> -->
+      <!-- <div class="collapsible-body" style=" padding:1rem;"><p  style=" padding:1rem;">{{articulo.imagen}}<img :src="articulo.imagen"  ></p></div> -->
+      <div class="collapsible-body" style=" padding:1rem;"> <img style="margin:auto;" :src="articulo.imagen">  <p v-html="articulo.contenido" style=" padding:1rem;">{{articulo.contenido}} </p></div>
     </li>
   </ul>
 </div>
