@@ -42,6 +42,7 @@ def scrape():
 
     elcsv = serialize_articles(listaArticulos)
     store(elcsv)
+    log("termine")
     print(datetime.datetime.now())
 
 def request(url):
