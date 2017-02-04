@@ -39,7 +39,8 @@ def scrape():
 
         if nuevoArticulo.contenido != None:
             nuevoArticulo.fecha = noodles.find('time').get('datetime')
-            nuevoArticulo.imagen = noodles.find('img', itemprop="Url").get("src")
+            nuevoArticulo.imagen = noodles.find('link', rel="image").get("href")
+            log(nuevoArticulo.imagen)
             listaArticulos.append(nuevoArticulo)
 
     elcsv = serialize_articles(listaArticulos)
