@@ -14,6 +14,7 @@ class articulo:
     link=''
     contenido=''
     fecha=''
+    imagen=''
 
 USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.95 Safari/537.36"
 
@@ -38,6 +39,7 @@ def scrape():
 
         if nuevoArticulo.contenido != None:
             nuevoArticulo.fecha = noodles.find('time').get('datetime')
+            nuevoArticulo.imagen = noodles.find('img', itemprop="Url").get("src")
             listaArticulos.append(nuevoArticulo)
 
     elcsv = serialize_articles(listaArticulos)
@@ -64,7 +66,7 @@ def timestamp():
 
 def serialize_articles(lista):
     articulos = map(serialize_article, lista)
-    finalCsv =  "titulo,link,contenido,fecha\n" + '\n'.join(articulos)
+    finalCsv =  "titulo,link,contenido,fecha,imagen\n" + '\n'.join(articulos)
     return finalCsv
 
 def serialize_article(article):
@@ -72,7 +74,8 @@ def serialize_article(article):
         article.titulo,
         article.link,
         article.contenido,
-        article.fecha
+        article.fecha,
+        article.imagen
     ]
     clean_line_elements = map(applyFormatEscaping , line_elements )
     final_line = ','.join(clean_line_elements)
