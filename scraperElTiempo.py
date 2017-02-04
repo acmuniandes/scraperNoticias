@@ -39,7 +39,7 @@ def scrape():
 
         if nuevoArticulo.contenido != None:
             nuevoArticulo.fecha = noodles.find('time').get('datetime')
-            nuevoArticulo.imagen = noodles.find('link', rel="image").get("href")
+            nuevoArticulo.imagen = noodles.find('link', rel="image_src").get("href")
             log(nuevoArticulo.imagen)
             listaArticulos.append(nuevoArticulo)
 
