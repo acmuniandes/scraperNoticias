@@ -70,7 +70,7 @@ def serialize_article(article):
         article.titulo,
         article.link,
         article.contenido,
-        articulo.fecha
+        article.fecha
     ]
     clean_line_elements = map(applyFormatEscaping , line_elements )
     final_line = ','.join(clean_line_elements)
