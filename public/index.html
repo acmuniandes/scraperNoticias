@@ -31,13 +31,11 @@ p {
   <h1 aling=center>El Tiempo Light</h1>
   <ul class="collapsible popout" data-collapsible="expandable">
     <li v-for="articulo in articulos" style="width:80%" >
-      <div>
-        <div class="collapsible-header">
-          <p style="float: left;">{{articulo.titulo}}</p>
-          <p style="text-align:right">
-            {{articulo.fecha}}
-          </p>
-        </div>
+      <div class="collapsible-header">
+        <p style="float: left;">{{articulo.titulo}}</p>
+        <p style="text-align:right">
+          {{articulo.fecha}}
+        </p>
       </div>
       <!-- <div class="collapsible-body" style=" padding:1rem;"><p  style=" padding:1rem;">{{articulo.imagen}}<img :src="articulo.imagen"  ></p></div> -->
       <div class="collapsible-body" style="text-align:justify; width:80%">
