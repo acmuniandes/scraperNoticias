@@ -28,7 +28,7 @@ def scrape():
     for unArticulo in soup.find_all('div',class_="main_article"):
         nuevoArticulo=articulo()
         nuevoArticulo.titulo=unArticulo.a.string
-        nuevoArticulo.link=unArticulo.a['href']
+        nuevoArticulo.link=unArticulo.a['href'].replace(" ", "")
         nuevoArticulo.contenido=""
 
         is_relative_article_link = nuevoArticulo.link.startswith('/')
