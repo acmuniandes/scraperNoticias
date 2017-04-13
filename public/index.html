@@ -59,12 +59,21 @@ var app = new Vue({
   }
 })
 
-Papa.parse("/news.csv", {
+Papa.parse("/tiempo", {
   download: true,
   dynamicTyping: true,
   header: true,
   complete: function(results) {
-    app.articulos=results.data;
+    app.articulos = results.data;
+  }
+});
+
+Papa.parse("/semana", {
+  download: true,
+  dynamicTyping: true,
+  header: true,
+  complete: function(results) {
+    app.articulos.append(results.data);
   }
 });
 

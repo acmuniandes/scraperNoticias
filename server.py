@@ -19,9 +19,14 @@ def serve_file(path):
     app.logger.debug("sirviendo archivo" + path)
     return send_from_directory('public', path)
 
-@app.route("/news.csv")
+@app.route("/tiempo")
 def show():
-    return r.get('news').decode('utf8')
+    return r.get('tiempo').decode('utf8')
+
+
+@app.route("/semana")
+def show():
+    return r.get('semana').decode('utf8')
 
 
 if __name__ == "__main__":

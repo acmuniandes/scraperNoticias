@@ -18,7 +18,7 @@ class articulo:
 
 USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.95 Safari/537.36"
 
-def scrape():
+def scrapeSemana():
     listaArticulos=[]
     log("solicitando principal")
     page = request("http://semana.com")
@@ -39,14 +39,52 @@ def scrape():
 
         if nuevoArticulo.contenido != None:
             nuevoArticulo.fecha = noodles.find('h3', class_="header-date")
-            nuevoArticulo.imagen = noodles.find('a', class_="article-image").get("href")
-            log(nuevoArticulo.imagen)
+            # nuevoArticulo.imagen = noodles.find('a', class_="article-image").get("href")
+            # log(nuevoArticulo.imagen)
             listaArticulos.append(nuevoArticulo)
 
     elcsv = serialize_articles(listaArticulos)
-    store(elcsv)
+    store(elcsv, "semana")
     log("termine")
     print(datetime.datetime.now())
+
+
+def scrapeElTiempo():
+    listaArticulos = []
+    log("solicitando principal")
+    page = request("http://eltiempo.com")
+    soup = BeautifulSoup( page , 'html5lib')
+    for unArticulo in soup.find_all('a',class_="title page-link"):
+        nuevoArticulo = articulo()
+        nuevoArticulo.titulo = unArticulo.string
+        nuevoArticulo.link = unArticulo['href'].replace(" ", "")
+        nuevoArticulo.contenido = ""
+
+        is_relative_article_link = nuevoArticulo.link.startswith('/')
+        if is_relative_article_link:
+            nuevoArticulo.link = "http://www.eltiempo.com" + nuevoArticulo.link
+        newPage = ""
+        while newPage == "" :
+            try:
+                newPage = request(nuevoArticulo.link)
+            except:
+                time.sleep(5)
+                continue
+
+        noodles = BeautifulSoup( newPage , 'html5lib')
+        nuevoArticulo.contenido = (noodles.find('div',class_="articulo-contenido"))
+
+        if nuevoArticulo.contenido != None:
+            nuevoArticulo.fecha = noodles.find('span', class_="fecha").string
+            # nuevoArticulo.imagen = noodles.find('link', rel="image_src").get("href")
+            # log(nuevoArticulo.imagen)
+            listaArticulos.append(nuevoArticulo)
+    elcsv = serialize_articles(listaArticulos)
+    store(elcsv, "tiempo")
+    log("termine")
+    print(datetime.datetime.now())
+
+
 
 def request(url):
     log("requesting " + url)
@@ -85,13 +123,17 @@ def serialize_article(article):
 def applyFormatEscaping(data):
     return  '"' + str(data).replace('"', "'") + '"'
 
-def store(content):
+def store(content, destination):
     r = redis.from_url(os.environ.get('REDIS_URL'))
-    r.set('news' , content.encode('utf8'))
+    r.set( destination , content.encode('utf8'))
 
 
+def scrape():
+    scrapeSemana()
+    scrapeElTiempo()
 
 scrape()
+
 schedule.every(5).minutes.do(scrape)
 while True:
     schedule.run_pending()
