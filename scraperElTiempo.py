@@ -19,34 +19,40 @@ class articulo:
 USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.95 Safari/537.36"
 
 def scrape():
-    listaArticulos=[]
+    listaArticulos = []
     log("solicitando principal")
     page = request("http://eltiempo.com")
-
     soup = BeautifulSoup( page , 'html5lib')
-
-    for unArticulo in soup.find_all('div',class_="main_article"):
-        nuevoArticulo=articulo()
-        nuevoArticulo.titulo=unArticulo.a.string
-        nuevoArticulo.link=unArticulo.a['href'].replace(" ", "")
-        nuevoArticulo.contenido=""
+    for unArticulo in soup.find_all('a',class_="title page-link"):
+        nuevoArticulo = articulo()
+        nuevoArticulo.titulo = unArticulo.string
+        nuevoArticulo.link = unArticulo['href'].replace(" ", "")
+        nuevoArticulo.contenido = ""
 
         is_relative_article_link = nuevoArticulo.link.startswith('/')
         if is_relative_article_link:
             nuevoArticulo.link = "http://www.eltiempo.com" + nuevoArticulo.link
-        noodles = BeautifulSoup(request(nuevoArticulo.link),'html5lib')
-        nuevoArticulo.contenido = (noodles.find('div',id="contenido"))
+        newPage = ""
+        while newPage == "" :
+            try:
+                newPage = request(nuevoArticulo.link)
+            except:
+                time.sleep(5)
+                continue
+
+        noodles = BeautifulSoup( newPage , 'html5lib')
+        nuevoArticulo.contenido = (noodles.find('div',class_="articulo-contenido"))
 
         if nuevoArticulo.contenido != None:
-            nuevoArticulo.fecha = noodles.find('time').get('datetime')
-            nuevoArticulo.imagen = noodles.find('link', rel="image_src").get("href")
-            log(nuevoArticulo.imagen)
+            nuevoArticulo.fecha = noodles.find('span', class_="fecha").string
+            # nuevoArticulo.imagen = noodles.find('link', rel="image_src").get("href")
+            # log(nuevoArticulo.imagen)
             listaArticulos.append(nuevoArticulo)
-
     elcsv = serialize_articles(listaArticulos)
     store(elcsv)
     log("termine")
     print(datetime.datetime.now())
+
 
 def request(url):
     log("requesting " + url)
